@@ -23,6 +23,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.inf2007.lab01.ui.theme.Lab01Theme
+import org.jetbrains.annotations.TestOnly
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,15 +50,16 @@ fun MainScreen() {
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 UserInput(
-                    name = name,
-                    onNameChange = { name = it }
+                    name = username,
+                    onNameChange = { username = it }
                 )
 
                 Button(
                     onClick = {
                         if (username.isNotBlank()) {
-                            showGreeting = false
+                            showGreeting = true
                         }
+
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -67,7 +69,7 @@ fun MainScreen() {
                 }
 
                 if (showGreeting) {
-                    Greeeting(
+                    Greeting(
                         name = username,
                         modifier = Modifier
                             .fillMaxWidth()
@@ -88,17 +90,17 @@ fun UserInput(name: String, onNameChange: (String) -> Unit, modifier: Modifier =
         label = { Text("Enter your Name") },
         modifier = modifier
             .fillMaxWidth()
-            .testTag("UserInput")
+            .testTag("nameInput")
     )
 }
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
-        text = "Hello $username!, Welcome to InF2007!",
+        text = "Hello $name!, Welcome to InF2007!",
         modifier = Modifier
             .fillMaxWidth()
-            .testTag("greeting")
+            .testTag("greetingMsg")
     )
 }
 
@@ -107,3 +109,5 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 fun GreetingPreview() {
     MainScreen()
 }
+
+
